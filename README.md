@@ -1,4 +1,7 @@
 # chisto-market
+
+[![Build Status](https://travis-ci.org/avel2k6/chisto-market.svg?branch=master)](https://travis-ci.org/avel2k6/chisto-market)
+
 Фронт на React + Redux для парсера chisto.market
 
 url: https://market.chisto.ru
