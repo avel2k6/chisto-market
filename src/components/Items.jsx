@@ -3,7 +3,7 @@ import React from 'react';
 import {
   Button, Col, ButtonGroup,
 } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import connect from '../connect';
 import * as actions from '../actions';
 
 const mapStateToProps = (state) => {
@@ -17,18 +17,16 @@ const mapStateToProps = (state) => {
 @connect(mapStateToProps)
 class Items extends React.Component {
   handleChangeViewedItem = id => () => {
-    const { changeViewedItem, loadViewedItemData } = this.props;
+    const { changeViewedItem, loadViewedItemData, changeViewedPage } = this.props;
     changeViewedItem({ id });
     loadViewedItemData({ id });
+    changeViewedPage('itemInfo');
   };
 
   render() {
     const { items: { byId, allIds }, vievedItemId} = this.props;
-    if (vievedItemId > 0) {
-      return null;
-    }
     return (
-      <div>
+      <div className="container">
         <h1><b>MARKET</b>.chisto</h1>
         <hr />
         <div className="row p-1">

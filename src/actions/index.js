@@ -8,14 +8,26 @@ export const getItemsSuccess = createAction('GET_ITEMS_SUCCESS');
 export const getItemsFailure = createAction('GET_ITEMS_FAILURE');
 
 export const changeViewedItem = createAction('CHANGE_VIEDED_ITEM');
+export const changeViewedPage = createAction('CHANGE_VIEDED_PAGE');
 
 export const getShopsRequest = createAction('GET_SHOPS_REQUEST');
 export const getShopsSuccess = createAction('GET_SHOPS_SUCCESS');
 export const getShopsFailure = createAction('GET_SHOPS_FAILURE');
 
+
 export const getPricesRequest = createAction('GET_PRICES_REQUEST');
 export const getPricesSuccess = createAction('GET_PRICES_SUCCESS');
 export const getPricesFailure = createAction('GET_PRICES_FAILURE');
+
+export const getAllShopsRequest = createAction('GET_ALL_SHOPS_REQUEST');
+export const getAllShopsSuccess = createAction('GET_ALL_SHOPS_SUCCESS');
+export const getAllShopsFailure = createAction('GET_ALL_SHOPS_FAILURE');
+
+export const getCompareShops = createAction('GET_COMPARE_SHOPS');
+
+export const getAllPricesRequest = createAction('GET_All_PRICES_REQUEST');
+export const getAllPricesSuccess = createAction('GET_All_PRICES_SUCCESS');
+export const getAllPricesFailure = createAction('GET_All_PRICES_FAILURE');
 
 export const removePrices = createAction('REMOVE_PRICES');
 
@@ -56,6 +68,43 @@ export const getItems = async (dispatch) => {
   }
 };
 
+export const getAllShops = date => async (dispatch) => {
+  const url = routes.allShopsPath();
+  dispatch(getAllShopsRequest());
+  try {
+    const axiosOptions = {
+      method: 'GET',
+      params: { date },
+      url,
+    };
+    const result = await retry(() => axios(axiosOptions), retryOptions);
+    dispatch(getAllShopsSuccess(result.data));
+  } catch (e) {
+    dispatch(getAllShopsFailure());
+    throw e;
+  }
+};
+
+export const getAllPrices = ({ date, checkboxes }) => async (dispatch) => {
+  const url = routes.allShopsPrices();
+  dispatch(getAllPricesRequest());
+  try {
+    const axiosOptions = {
+      method: 'GET',
+      params: {
+        date,
+        shopNames: checkboxes,
+      },
+      url,
+    };
+    const result = await retry(() => axios(axiosOptions), retryOptions);
+    dispatch(getAllPricesSuccess(result.data));
+  } catch (e) {
+    dispatch(getAllPricesFailure());
+    throw e;
+  }
+};
+
 export const loadViewedItemData = ({ id }) => async (dispatch) => {
   const url = routes.shopsPath(id);
   dispatch(getShopsRequest());
@@ -73,6 +122,28 @@ export const loadViewedItemData = ({ id }) => async (dispatch) => {
 };
 
 export const loadViewedItemPrices = ({ id, time, checkboxes }) => async (dispatch) => {
+  const url = routes.pricesPath(id);
+  dispatch(getPricesRequest());
+  try {
+    const axiosOptions = {
+      method: 'GET',
+      params: {
+        startTime: time.startTime,
+        endTime: time.endTime,
+        shopName: checkboxes,
+      },
+      url,
+    };
+    const result = await retry(() => axios(axiosOptions), retryOptions);
+    dispatch(removePrices());
+    dispatch(getPricesSuccess(result.data));
+  } catch (e) {
+    dispatch(getPricesFailure());
+    throw e;
+  }
+};
+
+export const loadShops = ({ id, time, checkboxes }) => async (dispatch) => {
   const url = routes.pricesPath(id);
   dispatch(getPricesRequest());
   try {

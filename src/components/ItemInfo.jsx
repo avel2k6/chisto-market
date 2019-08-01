@@ -58,9 +58,10 @@ const prepareChartsData = (charts) => {
 @reduxForm({ form: 'viededItemShops', enableReinitialize: true })
 class ItemInfo extends React.Component {
   handleCloseViewedItem =  () => {
-      const { changeViewedItem, reset } = this.props;
+      const { changeViewedItem, reset, changeViewedPage } = this.props;
     changeViewedItem({ id: 0 });
     reset();
+    changeViewedPage('items');
   };
 
   handleUpdate = (values) => {
@@ -89,11 +90,16 @@ class ItemInfo extends React.Component {
      } = this.props;
     const show = vievedItemId ? true : false;
     if (!show) {
-      return null;
+      return (
+        <div>
+          Не найден товар для анализа
+        </div>
+      );
     }
     const { byId, allIds } = viededItemShops;
     const  data = prepareChartsData(charts);
     return (
+      <div className='container'>
       <div className='w-100'>
         <button className="btn btn-dark float-right m-3" onClick={this.handleCloseViewedItem}>Назад</button>
         <h1><b>MARKET</b>.chisto | Цены</h1>
@@ -154,6 +160,7 @@ class ItemInfo extends React.Component {
             <button className="btn btn-warning" disabled={pristine} type="submit">Проверить</button>
           </div>
         </form>
+      </div>
       </div>
     );
   }

@@ -1,4 +1,6 @@
+import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap-reboot.min.css';
 import '../assets/application.css';
 import initApp from './app.jsx';
 // import gon from 'gon';

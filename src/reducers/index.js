@@ -69,10 +69,50 @@ const charts = handleActions(
   {},
 );
 
+const shops = handleActions(
+  {
+    [actions.getAllShopsSuccess](state, { payload: { shops: allShops } }) {
+      return allShops;
+    },
+  },
+  [],
+);
+
+const compareShopsPrices = handleActions(
+  {
+    [actions.getAllPricesSuccess](state, { payload: { prices } }) {
+      return prices;
+    },
+  },
+  [],
+);
+
+const compareShops = handleActions(
+  {
+    [actions.getCompareShops](state, { payload: { checkboxes } }) {
+      return checkboxes;
+    },
+  },
+  [],
+);
+
+const viewedPage = handleActions(
+  {
+    [actions.changeViewedPage](state, { payload: tagName }) {
+      return tagName;
+    },
+  },
+  'home',
+);
+
 export default combineReducers({
   items,
   vievedItemId,
   viededItemShops,
   charts,
+  viewedPage,
+  shops,
+  compareShops,
+  compareShopsPrices,
   form: formReducer,
 });
