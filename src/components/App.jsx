@@ -1,16 +1,13 @@
 import React from 'react';
-import {
-  Row, Col,
-} from 'react-bootstrap';
 import Items from './Items';
 import ItemInfo from './ItemInfo';
 
 
 const App = () => (
-  <Row>
+  <div className='p-2'>
     <Items />
     <ItemInfo />
-  </Row>
+  </div>
 );
 
 export default App;

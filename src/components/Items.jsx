@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import {
   Button, Col, ButtonGroup,
@@ -13,12 +14,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const actionCreators = {
-  changeViewedItem: actions.changeViewedItem,
-  loadViewedItemData: actions.loadViewedItemData,
-};
-
-@connect(mapStateToProps, actionCreators)
+@connect(mapStateToProps)
 class Items extends React.Component {
   handleChangeViewedItem = id => () => {
     const { changeViewedItem, loadViewedItemData } = this.props;
@@ -42,7 +38,7 @@ class Items extends React.Component {
                 const { image, name } = byId[id];
                 const imgUrl = `https://img.chisto.ru/_src/img/tmb/${image}`;
                 return (
-                  <div key={id} className="col col-sm-3 p-2">
+                  <div key={_.uniqueId(id)} className="col col-sm-3 p-2">
                     <div className="card w-100">
                       <div className="card-header p-0 height-300 overflow-hidden bg-white">
                         <img src={imgUrl} className="w-100" alt={name} />

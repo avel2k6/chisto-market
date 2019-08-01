@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
-import { connect } from 'react-redux';
+import connect from '../connect';
 import * as actions from '../actions';
 import Chart from './Chart';
 
@@ -54,13 +54,7 @@ const prepareChartsData = (charts) => {
   return data;
 };
 
-const actionCreators = {
-  changeViewedItem: actions.changeViewedItem,
-  loadViewedItemPrices: actions.loadViewedItemPrices,
-};
-
-
-@connect(mapStateToProps, actionCreators)
+@connect(mapStateToProps)
 @reduxForm({ form: 'viededItemShops', enableReinitialize: true })
 class ItemInfo extends React.Component {
   handleCloseViewedItem =  () => {
