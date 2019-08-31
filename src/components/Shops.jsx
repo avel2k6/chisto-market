@@ -42,7 +42,6 @@ class Shops extends React.Component {
     const {
       shops, handleSubmit, compareShopsPrices, compareShops,
     } = this.props;
-    console.log(compareShopsPrices);
     return (
       <div className="w-100 row">
         <div className="col-md-3 d-none d-md-block bg-light sidebar h-100">
